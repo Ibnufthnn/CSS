@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goodlife Kitchen - Menu</title>
+
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f7f0;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* THEME OVERRIDES FOR CONSISTENT GREEN COLOR */
+    .bg-success {
+      background-color: #2a7a2a !important;
+    }
+    .text-success {
+      color: #2a7a2a !important;
+    }
+    .btn-success {
+      background-color: #2a7a2a !important;
+      border-color: #2a7a2a !important;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn-success:hover, .btn-success:focus {
+      background-color: #1b5e20 !important;
+      border-color: #1b5e20 !important;
+      transform: translateY(-1px);
+    }
+    .btn-outline-success {
+      color: #2a7a2a !important;
+      border-color: #2a7a2a !important;
+      font-weight: 500;
+    }
+    .btn-outline-success:hover {
+      background-color: #2a7a2a !important;
+      color: white !important;
+    }
+    .border-success {
+      border-color: #2a7a2a !important;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #e8f5e2;
+      border-bottom: 1px solid #d0e8cb;
+    }
+    header img {
+      width: 90px;
+      transition: transform 0.5s ease;
+    }
+    header img:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+    header h1 {
+      font-size: 28px;
+      margin: 12px 0 5px;
+      color: #1b5e20;
+      font-weight: bold;
+    }
+    header p {
+      font-style: italic;
+      color: #555;
+      margin: 0;
+      font-size: 15px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background-color: #2a7a2a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    .navbar-brand:hover {
+      color: #c8e6c9;
+    }
+    .nav-link {
+      color: white !important;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #c8e6c9 !important;
+    }
+
+    /* JUMBOTRON */
+    .jumbotron {
+      background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 1px solid #b2dfdb;
+      box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
+    }
+    .jumbotron h2 {
+      font-size: 28px;
+      color: #1b5e20;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .jumbotron p {
+      color: #3e6b41;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* GRID & CONTAINER SETUP */
+    .main-content {
+      padding: 30px 15px;
+    }
+
+    /* CARD SECTIONS */
+    .card-section h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #2a7a2a;
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* MENU CARDS WITH ANIMATIONS */
+    .menu-card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      height: 100%;
+      display: flex;
+      flex-column: column;
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(42, 122, 42, 0.15);
+    }
+    .menu-card-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 150px;
+    }
+    .menu-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover img {
+      transform: scale(1.08);
+    }
+    .menu-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(42, 122, 42, 0.9);
+      color: white;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .menu-card .card-body {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+    .menu-card .card-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .menu-card .card-text {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+      flex-grow: 1;
+    }
+    .menu-card .price-tag {
+      font-size: 15px;
+      font-weight: bold;
+      color: #2a7a2a;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.7s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    /* SHOPPING CART PANEL */
+    .cart-panel {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e8f5e2;
+    }
+    .cart-header {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .cart-items-list {
+      max-height: 280px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #2a7a2a #f0f7f0;
+    }
+    .cart-items-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .cart-items-list::-webkit-scrollbar-thumb {
+      background-color: #2a7a2a;
+      border-radius: 6px;
+    }
+    .cart-item {
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f7f0;
+      animation: fadeInUp 0.3s ease;
+    }
+    .cart-item-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .cart-item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1b5e20;
+    }
+    .cart-item-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      border-radius: 50%;
+    }
+
+    /* CART BADGE PULSE */
+    .badge-pulse {
+      animation: pulse 0.3s ease;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #e8f5e2;
+      border-top: 1px solid #d0e8cb;
+      padding: 25px 15px;
+      text-align: center;
+    }
+    footer p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #333;
+    }
+    footer a {
+      color: #2a7a2a;
+      text-decoration: none;
+      margin: 0 8px;
+      font-size: 24px;
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+    footer a:hover {
+      color: #1b5e20;
+      transform: scale(1.15);
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: #777;
+      margin-top: 12px;
+    }
+
+    /* RECEIPT STYLE FOR MODAL */
+    .receipt-paper {
+      background-color: #fff;
+      border: 1px dashed #bbb;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-radius: 4px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 991.98px) {
+      .sticky-cart-column {
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" alt="Logo Goodlife Kitchen" />
+    <h1>🍃 Goodlife Kitchen 🍃</h1>
+    <p>Hidup lebih sehat, rasa tetap nikmat</p>
+  </header>
+
+  <!-- NAVBAR BOOTSTRAP -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="bi bi-flower1 text-white"></i> Goodlife Kitchen</a>
+      <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link active" href="menu.html">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- JUMBOTRON -->
+  <div class="jumbotron">
+    <h2>🍽️ Daftar Menu Goodlife Kitchen 🍽️</h2>
+    <p>Pilihan makanan dan minuman sehat yang lezat setiap harinya</p>
+  </div>
+
+  <!-- MAIN CONTAINER (2 COLUMNS LAYOUT) -->
+  <div class="container main-content">
+    <div class="row">
+
+      <!-- LEFT COLUMN: MENU ITEMS -->
+      <div class="col-lg-8 fade-in-up">
+
+        <!-- CARD MENU MAKANAN -->
+        <div class="card-section mb-4">
+          <h3><i class="bi bi-egg-fried text-success"></i> Menu Makanan</h3>
+          <div class="row g-3">
+
+            <!-- Nasi Goreng Sehat -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card menu-card">
+                <div class="menu-card-img-wrapper">
+                  <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=200" alt="Nasi Goreng Sehat"/>
+                  <span class="menu-badge">Best Seller</span>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h5 class="card-title text-success">Nasi Goreng Sehat</h5>
+                    <p class="card-text">Dengan sayuran organik dan minyak zaitun</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="price-tag">Rp25.000</span>
+                    <button class="btn btn-sm btn-success px-3 rounded-pill" onclick="tambahKeKeranjang(1, 'Nasi Goreng Sehat', 25000)">
+                      <i class="bi bi-plus"></i> Beli
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sup Sayur -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card menu-card">
+                <div class="menu-card-img-wrapper">
+                  <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200" alt="Sup Sayur"/>
+                  <span class="menu-badge">Healthy Choice</span>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h5 class="card-title text-success">Sup Sayur</h5>
+                    <p class="card-text">Hangat, rendah garam, cocok untuk semua usia</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="price-tag">Rp20.000</span>
+                    <button class="btn btn-sm btn-success px-3 rounded-pill" onclick="tambahKeKeranjang(2, 'Sup Sayur', 20000)">
+                      <i class="bi bi-plus"></i> Beli
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mix Salad -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card menu-card">
+                <div class="menu-card-img-wrapper">
+                  <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200" alt="Mix Salad"/>
+                  <span class="menu-badge">Fresh Diet</span>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h5 class="card-title text-success">Mix Salad</h5>
+                    <p class="card-text">Buah dan sayuran segar lokal, dengan dressing madu</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="price-tag">Rp18.000</span>
+                    <button class="btn btn-sm btn-success px-3 rounded-pill" onclick="tambahKeKeranjang(3, 'Mix Salad', 18000)">
+                      <i class="bi bi-plus"></i> Beli
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CARD MENU MINUMAN -->
+        <div class="card-section mt-5">
+          <h3><i class="bi bi-cup-straw text-success"></i> Menu Minuman</h3>
+          <div class="row g-3">
+
+            <!-- Jus Jeruk -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card menu-card">
+                <div class="menu-card-img-wrapper">
+                  <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=200" alt="Jus Jeruk"/>
+                  <span class="menu-badge">Vitamin C</span>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h5 class="card-title text-success">Jus Jeruk</h5>
+                    <p class="card-text">Perasan jeruk segar, tanpa gula tambahan</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="price-tag">Rp12.000</span>
+                    <button class="btn btn-sm btn-success px-3 rounded-pill" onclick="tambahKeKeranjang(4, 'Jus Jeruk', 12000)">
+                      <i class="bi bi-plus"></i> Beli
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Es Teh Tawar -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card menu-card">
+                <div class="menu-card-img-wrapper">
+                  <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200" alt="Es Teh Tawar"/>
+                  <span class="menu-badge">Calorie Free</span>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h5 class="card-title text-success">Es Teh Tawar</h5>
+                    <p class="card-text">Penyegar alami, tanpa gula</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="price-tag">Rp5.000</span>
+                    <button class="btn btn-sm btn-success px-3 rounded-pill" onclick="tambahKeKeranjang(5, 'Es Teh Tawar', 5000)">
+                      <i class="bi bi-plus"></i> Beli
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Air Mineral -->
+            <div class="col-md-6 col-lg-4">
+              <div class="card menu-card">
+                <div class="menu-card-img-wrapper">
+                  <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=200" alt="Air Mineral"/>
+                  <span class="menu-badge">Pure Water</span>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h5 class="card-title text-success">Air Mineral</h5>
+                    <p class="card-text">Air mineral botol kemasan bersih</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="price-tag">Rp4.000</span>
+                    <button class="btn btn-sm btn-success px-3 rounded-pill" onclick="tambahKeKeranjang(6, 'Air Mineral', 4000)">
+                      <i class="bi bi-plus"></i> Beli
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: SHOPPING CART & PAYMENT PANEL -->
+      <div class="col-lg-4 sticky-cart-column">
+        <div class="cart-panel card sticky-top" style="top: 20px; z-index: 10;">
+
+          <div class="cart-header card-header bg-success text-white py-3">
+            <h5 class="card-title mb-0 d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-cart3"></i> Keranjang Belanja</span>
+              <span class="badge bg-light text-success rounded-pill" id="cart-count">0</span>
+            </h5>
+          </div>
+
+          <div class="card-body p-3">
+
+            <!-- List Item di Keranjang -->
+            <div class="cart-items-list pe-1" id="cart-items">
+              <p class="text-muted text-center my-4 small">
+                <i class="bi bi-cart-x fs-3 d-block mb-2 text-muted"></i>
+                Keranjang kosong.<br>Pilih menu lezat di samping!
+              </p>
+            </div>
+
+            <hr class="my-3 text-muted">
+
+            <!-- Subtotal & Diskon Rincian -->
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">Subtotal:</span>
+              <span class="fw-bold" id="cart-subtotal">Rp0</span>
+            </div>
+
+            <!-- Baris Diskon (Tampil dinamis) -->
+            <div class="d-flex justify-content-between mb-2 small text-danger d-none" id="discount-row">
+              <span>Diskon (10%):</span>
+              <span class="fw-bold" id="cart-discount">-Rp0</span>
+            </div>
+
+            <!-- Total Harga Akhir -->
+            <div class="d-flex justify-content-between mb-3 border-top pt-2">
+              <span class="fw-bold text-success fs-5">Total Akhir:</span>
+              <span class="fw-bold text-success fs-5" id="cart-total" data-total-val="0">Rp0</span>
+            </div>
+
+            <!-- Form Kasir Pembayaran -->
+            <div class="mb-3">
+              <label for="cash-input" class="form-label text-muted small fw-bold mb-1"><i class="bi bi-cash-coin text-success"></i> Uang Tunai Pembayaran</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light text-muted fw-bold">Rp</span>
+                <input type="number" class="form-control fw-bold text-success" id="cash-input" placeholder="Masukkan jumlah uang" min="0" disabled>
+              </div>
+            </div>
+
+            <!-- Baris Kembalian / Kekurangan -->
+            <div class="d-flex justify-content-between mb-3 p-2 rounded bg-light d-none" id="change-row">
+              <span class="fw-bold small align-self-center" id="change-label">Kembalian:</span>
+              <span class="fw-bold fs-5" id="cart-change">Rp0</span>
+            </div>
+
+            <div class="py-2 px-3 small rounded mb-3" style="font-size: 12px; background-color: #e8f5e2; color: #1b5e20; border: 1px solid #c8e6c9;">
+              <i class="bi bi-info-circle-fill text-success"></i> Dapatkan <strong>Diskon 10%</strong> dengan minimal pembelian Rp50.000!
+            </div>
+
+            <!-- Tombol Checkout -->
+            <button class="btn btn-success w-100 py-2.5 d-flex align-items-center justify-content-center gap-2" id="btn-checkout" onclick="prosesPembayaran()" disabled>
+              <i class="bi bi-wallet2"></i> <strong>Proses Pembayaran (Kasir)</strong>
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RECEIPT MODAL (STRUK BELANJA) -->
+  <div class="modal fade" id="receiptModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title fw-bold" id="receiptModalLabel"><i class="bi bi-receipt"></i> Struk Pembelian Sukses</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="resetKeranjang()"></button>
+        </div>
+        <div class="modal-body p-4 bg-light">
+
+          <div class="receipt-paper p-3 p-md-4">
+
+            <!-- Header Struk -->
+            <div class="text-center mb-4">
+              <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" alt="Logo" style="width: 50px;" class="mb-2">
+              <h4 class="fw-bold mb-0 text-success">Goodlife Kitchen</h4>
+              <p class="text-muted small mb-0">Hidup lebih sehat, rasa tetap nikmat</p>
+              <p class="text-muted small mb-0">Jl. Sehat No.1, Jakarta</p>
+              <div class="border-top border-bottom py-1 my-2 text-muted small">
+                <span class="d-block d-sm-inline">Struk Virtual • </span>
+                <span id="receipt-date">27-06-2026</span>
+              </div>
+            </div>
+
+            <!-- Rincian Item Belanja -->
+            <div id="receipt-items" class="mb-3">
+              <!-- Item dinamis disisipkan di sini -->
+            </div>
+
+            <!-- Perhitungan Keuangan -->
+            <div class="border-top pt-2">
+              <div class="d-flex justify-content-between small text-muted mb-1">
+                <span>Subtotal:</span>
+                <span id="receipt-subtotal">Rp0</span>
+              </div>
+              <div class="d-flex justify-content-between small text-danger mb-1 d-none" id="receipt-discount-row">
+                <span>Diskon (10%):</span>
+                <span id="receipt-discount">-Rp0</span>
+              </div>
+              <div class="d-flex justify-content-between fw-bold mb-1 border-top pt-1 mt-1">
+                <span>Total Akhir:</span>
+                <span id="receipt-total" class="text-success fs-5">Rp0</span>
+              </div>
+              <div class="d-flex justify-content-between text-muted small mb-1">
+                <span>Pembayaran Tunai:</span>
+                <span id="receipt-cash">Rp0</span>
+              </div>
+              <div class="d-flex justify-content-between fw-bold text-success border-top pt-1 mt-1">
+                <span>Kembalian:</span>
+                <span id="receipt-change">Rp0</span>
+              </div>
+            </div>
+
+            <!-- Footer Struk -->
+            <div class="text-center mt-4">
+              <p class="mb-0 text-muted small">🧡 Terima kasih telah memilih makanan sehat 🧡</p>
+              <p class="small text-muted font-monospace mt-1" style="font-size: 11px;">Pembayaran: Cash/Tunai</p>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer bg-light border-0">
+          <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal" onclick="resetKeranjang()">Tutup</button>
+          <button type="button" class="btn btn-success px-4" onclick="window.print()"><i class="bi bi-printer"></i> Cetak Struk</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>📍 Perum Purimas 02 Blok EE No 03 — Telp: 087825481643 — 🗓️ Buka 08:00 - 20:00</p>
+    <p>
+      <!-- Icon Bootstrap -->
+      <a href="#"><i class="bi bi-instagram"></i></a>
+      <a href="#"><i class="bi bi-whatsapp"></i></a>
+    </p>
+    <p>🧡 Terima kasih telah memilih makanan sehat 🧡</p>
+    <p class="footer-copy">© 2025 Goodlife Kitchen. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Menyimpan data keranjang belanja
+    let keranjang = [];
+    const diskonThreshold = 50000; // Minimal belanja Rp 50.000 untuk dapat diskon
+    const diskonPersen = 10;       // Diskon 10%
+
+    // Menambahkan makanan/minuman ke keranjang
+    function tambahKeKeranjang(id, nama, harga) {
+      let item = keranjang.find(i => i.id === id);
+
+      if (item) {
+        item.qty++;
+      } else {
+        keranjang.push({
+          id: id,
+          nama: nama,
+          harga: harga,
+          qty: 1
+        });
+      }
+
+      // Berikan efek detak (pulse badge) untuk interaktif
+      const badge = document.getElementById('cart-count');
+      badge.classList.remove('badge-pulse');
+      void badge.offsetWidth; // Memicu reflow browser agar animasi ter-reset
+      badge.classList.add('badge-pulse');
+
+      renderKeranjang();
+    }
+
+    // Mengurangi atau menambah kuantitas di keranjang belanja
+    function updateKuantitas(id, aksi) {
+      let item = keranjang.find(i => i.id === id);
+      if (!item) return;
+
+      if (aksi === 'plus') {
+        item.qty++;
+      } else if (aksi === 'minus') {
+        item.qty--;
+        if (item.qty <= 0) {
+          keranjang = keranjang.filter(i => i.id !== id);
+        }
+      }
+      renderKeranjang();
+    }
+
+    // Menghapus barang dari keranjang secara penuh
+    function hapusItem(id) {
+      keranjang = keranjang.filter(i => i.id !== id);
+      renderKeranjang();
+    }
+
+    // Menggambar ulang tampilan keranjang belanja beserta perhitungan harga
+    function renderKeranjang() {
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartCountEl = document.getElementById('cart-count');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const discountRowEl = document.getElementById('discount-row');
+      const discountEl = document.getElementById('cart-discount');
+      const totalEl = document.getElementById('cart-total');
+      const cashInputEl = document.getElementById('cash-input');
+      const btnCheckoutEl = document.getElementById('btn-checkout');
+
+      // Tampilkan jumlah item di badge
+      let totalQty = keranjang.reduce((sum, item) => sum + item.qty, 0);
+      cartCountEl.textContent = totalQty;
+
+      // Jika keranjang kosong
+      if (keranjang.length === 0) {
+        cartItemsEl.innerHTML = `
+          <p class="text-muted text-center my-4 small">
+            <i class="bi bi-cart-x fs-3 d-block mb-2 text-muted"></i>
+            Keranjang kosong.<br>Pilih menu lezat di samping!
+          </p>
+        `;
+        subtotalEl.textContent = 'Rp0';
+        discountRowEl.classList.add('d-none');
+        totalEl.textContent = 'Rp0';
+        totalEl.dataset.totalVal = "0";
+        cashInputEl.value = '';
+        cashInputEl.disabled = true;
+        btnCheckoutEl.disabled = true;
+        document.getElementById('change-row').classList.add('d-none');
+        return;
+      }
+
+      // Aktifkan form input cash
+      cashInputEl.disabled = false;
+
+      // Gambar list belanjaan
+      let cartHtml = '';
+      let subtotal = 0;
+
+      keranjang.forEach(item => {
+        let totalHargaItem = item.harga * item.qty;
+        subtotal += totalHargaItem;
+
+        cartHtml += `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <span class="cart-item-name">${item.nama}</span>
+              <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" onclick="hapusItem(${item.id})" title="Hapus Item">
+                <i class="bi bi-x-circle-fill"></i>
+              </button>
+            </div>
+            <div class="cart-item-controls">
+              <span class="text-muted small">Rp${item.harga.toLocaleString('id-ID')}</span>
+              <div class="d-flex align-items-center gap-1.5">
+                <button class="btn btn-outline-success btn-sm qty-btn" onclick="updateKuantitas(${item.id}, 'minus')">-</button>
+                <span class="mx-2 fw-bold small text-dark">${item.qty}</span>
+                <button class="btn btn-outline-success btn-sm qty-btn" onclick="updateKuantitas(${item.id}, 'plus')">+</button>
+              </div>
+              <span class="fw-bold text-success small">Rp${totalHargaItem.toLocaleString('id-ID')}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      cartItemsEl.innerHTML = cartHtml;
+
+      // Update harga subtotal
+      subtotalEl.textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
+
+      // Perhitungan diskon
+      let diskon = 0;
+      if (subtotal >= diskonThreshold) {
+        diskon = (diskonPersen / 100) * subtotal;
+        discountRowEl.classList.remove('d-none');
+        discountEl.textContent = `-Rp${diskon.toLocaleString('id-ID')}`;
+      } else {
+        discountRowEl.classList.add('d-none');
+      }
+
+      // Hitung total akhir
+      let totalAkhir = subtotal - diskon;
+      totalEl.textContent = `Rp${totalAkhir.toLocaleString('id-ID')}`;
+      totalEl.dataset.totalVal = totalAkhir;
+
+      // Hitung ulang uang & kembalian
+      checkPembayaran();
+    }
+
+    // Melakukan kalkulasi kembalian tunai secara real-time
+    function checkPembayaran() {
+      const cashInputEl = document.getElementById('cash-input');
+      const changeRowEl = document.getElementById('change-row');
+      const changeLabelEl = document.getElementById('change-label');
+      const changeValEl = document.getElementById('cart-change');
+      const btnCheckoutEl = document.getElementById('btn-checkout');
+      const totalEl = document.getElementById('cart-total');
+
+      let total = parseFloat(totalEl.dataset.totalVal || 0);
+      let cash = parseFloat(cashInputEl.value);
+
+      if (isNaN(cash) || cash <= 0 || keranjang.length === 0) {
+        btnCheckoutEl.disabled = true;
+        changeRowEl.classList.add('d-none');
+        return;
+      }
+
+      changeRowEl.classList.remove('d-none');
+
+      if (cash < total) {
+        // Uang Kurang
+        btnCheckoutEl.disabled = true;
+        changeLabelEl.textContent = "Kekurangan:";
+        changeLabelEl.className = "fw-bold text-danger small";
+
+        let selisih = total - cash;
+        changeValEl.textContent = `Rp${selisih.toLocaleString('id-ID')}`;
+        changeValEl.className = "fw-bold text-danger fs-5";
+      } else {
+        // Uang Cukup
+        btnCheckoutEl.disabled = false;
+        changeLabelEl.textContent = "Kembalian:";
+        changeLabelEl.className = "fw-bold text-success small";
+
+        let kembalian = cash - total;
+        changeValEl.textContent = `Rp${kembalian.toLocaleString('id-ID')}`;
+        changeValEl.className = "fw-bold text-success fs-5";
+      }
+    }
+
+    // Jalankan kalkulasi saat input uang berubah
+    document.getElementById('cash-input').addEventListener('input', checkPembayaran);
+
+    // Proses Pembayaran dan Menampilkan Struk Nota Belanja
+    function prosesPembayaran() {
+      const totalEl = document.getElementById('cart-total');
+      const cashInputEl = document.getElementById('cash-input');
+
+      let total = parseFloat(totalEl.dataset.totalVal || 0);
+      let cash = parseFloat(cashInputEl.value);
+
+      if (cash < total) {
+        alert("Mohon masukkan nominal uang tunai yang mencukupi!");
+        return;
+      }
+
+      // Format Waktu Struk Pembelian
+      let sekarang = new Date();
+      let formatTanggal = sekarang.getDate().toString().padStart(2, '0') + '/' +
+                          (sekarang.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                          sekarang.getFullYear() + ' ' +
+                          sekarang.getHours().toString().padStart(2, '0') + ':' +
+                          sekarang.getMinutes().toString().padStart(2, '0');
+
+      document.getElementById('receipt-date').textContent = formatTanggal;
+
+      // Gambar detail items pada struk pembelian
+      const receiptItemsEl = document.getElementById('receipt-items');
+      let receiptHtml = '';
+      let subtotal = 0;
+
+      keranjang.forEach(item => {
+        let totalHargaItem = item.harga * item.qty;
+        subtotal += totalHargaItem;
+
+        receiptHtml += `
+          <div class="d-flex justify-content-between mb-1 small text-dark border-bottom border-light pb-1">
+            <span>${item.nama} <span class="text-muted">x${item.qty}</span></span>
+            <span>Rp${totalHargaItem.toLocaleString('id-ID')}</span>
+          </div>
+        `;
+      });
+
+      receiptItemsEl.innerHTML = receiptHtml;
+
+      // Tampilkan info biaya pada struk pembelian
+      document.getElementById('receipt-subtotal').textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
+
+      // Diskon pada struk
+      let diskon = 0;
+      const receiptDiscountRow = document.getElementById('receipt-discount-row');
+      if (subtotal >= diskonThreshold) {
+        diskon = (diskonPersen / 100) * subtotal;
+        receiptDiscountRow.classList.remove('d-none');
+        document.getElementById('receipt-discount').textContent = `-Rp${diskon.toLocaleString('id-ID')}`;
+      } else {
+        receiptDiscountRow.classList.add('d-none');
+      }
+
+      let totalAkhir = subtotal - diskon;
+      let kembalian = cash - totalAkhir;
+
+      document.getElementById('receipt-total').textContent = `Rp${totalAkhir.toLocaleString('id-ID')}`;
+      document.getElementById('receipt-cash').textContent = `Rp${cash.toLocaleString('id-ID')}`;
+      document.getElementById('receipt-change').textContent = `Rp${kembalian.toLocaleString('id-ID')}`;
+
+      // Buka Modal Struk dengan Bootstrap Modal
+      const modal = new bootstrap.Modal(document.getElementById('receiptModal'));
+      modal.show();
+    }
+
+    // Reset keranjang setelah transaksi selesai
+    function resetKeranjang() {
+      keranjang = [];
+      document.getElementById('cash-input').value = '';
+      renderKeranjang();
+    }
+  </script>
+
+</body>
+</html>
